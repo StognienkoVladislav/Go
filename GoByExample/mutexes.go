@@ -19,13 +19,15 @@ func main(){
 
 	for w:=0; w<10; w++{
 		go func() {
-			key := rand.Intn(5)
-			val := rand.Intn(100)
-			mutex.Lock()
-			state[key] = val
-			mutex.Unlock()
-			atomic.AddUint64(&writeOps, 1)
-			time.Sleep(time.Millisecond)
+			for{
+				key := rand.Intn(5)
+				val := rand.Intn(100)
+				mutex.Lock()
+				state[key] = val
+				mutex.Unlock()
+				atomic.AddUint64(&writeOps, 1)
+				time.Sleep(time.Millisecond)
+			}
 		}()
 	}
 
